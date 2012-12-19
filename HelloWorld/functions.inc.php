@@ -33,5 +33,9 @@ class HelloWorld_conf {
 		return $ext->generateConf();
 	}//generate_extensions_conf()
 }//class HelloWorld
-	
+
+/*
+ * If you include the ending php closing tag 
+ * please make sure there is/are no newlines after it as this can cause issues in FreePBX
+ */
 ?>
