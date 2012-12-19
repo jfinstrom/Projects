@@ -1,0 +1,27 @@
+<module>
+	<rawname>tweet2call</rawname>
+	<name>Tweet 2 Call</name>
+	<version>0.1.0.0</version>
+	<candisable>yes</candisable>
+	<canuninstall>yes</canuninstall>
+	<changelog>
+		*0.1.0.0* Original Release (beta)
+                *0.2.0.0* Tested much more stabler
+	</changelog>
+	<description>
+	Polls a specified twitter account and generates calls based on specialy formatted DMS
+	</description>
+	<info>http://dontcallmyboss.com/projects/</info>
+	<menuitems>
+                <tweet2call>Tweet2Call</tweet2call>
+	</menuitems>
+	<depends>
+                <module>queues</module>
+    </depends>
+
+	<type>setup</type>
+	<category>Basic</category>
+	<location>x</location>
+	<md5sum>x</md5sum>
+</module>
+
