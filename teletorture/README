@@ -1,0 +1,14 @@
+Credit from the original Dial Plan
+; AN EXERCISE IN BAD DIALPLAN DESIGN
+; (What better test ground than on telemarketers?)
+;; Should I admit this? Written by Steve Murphy, Electronic Tools Co. 
+
+This is a dial plan that loops and carrys on in an attempt to really annoy Telemarketers. Most end with take us off your list, but the telemarketer has to get there first.......
+
+
+Original Dial Plan Author: Steve Murphy 
+Audio Prompts: Steve Murphy
+Ported to FreePBX module: James Finstrom <jfinstrom [at] gmail [dot] com
+
+Kids dont try this at home
+based on:http://www.voip-info.org/wiki/view/Asterisk+AEL+Telemarketer+Torture

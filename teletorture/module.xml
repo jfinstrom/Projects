@@ -1,0 +1,15 @@
+<module>
+	<rawname>teletorture</rawname>
+	<name>Telemarketer Torture</name>
+	<version>0.0.1</version>
+        <description>
+           An Endless IVR that you can send Telemarketers to. Based on the work of Steve Murphy.
+        </description>
+	<type>setup</type>
+	<category>Third Party Addon</category>
+	<location></location>
+	<info></info>
+        <changelog>
+                *0.0.1* First Attempt at a module why not telemarketer torture....
+        </changelog>
+</module>
