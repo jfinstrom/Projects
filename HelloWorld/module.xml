@@ -15,7 +15,9 @@
                 <HelloWorld>Hello World</HelloWorld>
 	</menuitems>
 	<depends>
-        </depends>
+		<module>core</module>
+		<version>ge2.2</version>
+    </depends>
 	<type>setup</type>
 	<category>Basic</category>
 	<location>x</location>

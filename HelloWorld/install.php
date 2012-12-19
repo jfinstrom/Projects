@@ -5,7 +5,7 @@ global $amp_conf;
 
 if (! function_exists("out")) {
 	function out($text) {
-		echo $text."Hello World <br />";
+		echo $text."<br />";
 	}
 }
 
