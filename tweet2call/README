@@ -35,7 +35,7 @@ EULA:
         THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
         OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+SOME OF THIS DOESN'T APPLY WHEN USED AS A FREEPBX MODULE (THE CODE IS OLD DONT REMEMBER)
 Script Requires:
 php5, php-cli, php-curl If you have a PHP versiln < 5.2.0 you will need the json PEAR class..  
 
@@ -124,15 +124,15 @@ exten => s,n,Goto(sales-queue,s,2)
 exten => s,1,Set(QUEUE_PRIO=10)
 exten => s,n,Goto(billing-queue,s,2)
 		
-That is pretty much it if you did the aboe stuff correctly it should work.
+That is pretty much it if you did the above stuff correctly it should work.
 
 If you find this script or any other advice I give useful please consider
-my paypal clergy12@yahoo.com .  Direct gifts are also enjoyed feel free to 
+my paypal jfinstrom@gmail.com .  Direct gifts are also enjoyed feel free to 
 shoot an email to jfinstrom [at] gmail.com for shipping info. 
 
 TODO/IDEAS for further improvement:
-- convert to freepbx module
-- add database support for blacklist
+- convert to freepbx module << did that
+- add database support for blacklist 
 - add database driven user based blacklist
 
 Further development of this project will depend on interest and time..
