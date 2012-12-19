@@ -1,0 +1,141 @@
+******************************Tweet2Call*******************************
+Even if you don't like instructions please read this as support is not
+provided and if something does not work it is likely because you didn't 
+read this:
+
+Author: James Finstrom <jfinstrom[at] gmail.com>
+Code review and clean up: Bryce Chidester
+Licence: BSD
+Purpose: Generates calls based on direct messages through received
+         over the twitter network.
+
+EULA:
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are
+        met:
+        
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above
+          copyright notice, this list of conditions and the following disclaimer
+          in the documentation and/or other materials provided with the
+          distribution.
+        * Neither the name of the  nor the names of its
+          contributors may be used to endorse or promote products derived from
+          this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+        "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+        LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+        A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+        OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+        LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+        DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+        THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+        (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Script Requires:
+php5, php-cli, php-curl If you have a PHP versiln < 5.2.0 you will need the json PEAR class..  
+
+INSTALL:
+
+You can place this script anywhere on the system, for ease of directions
+I will use '/usr/local/sbin/' change this path where referenced to the 
+path that fits your needs.
+
+1. Install the physical file
+     install -m 755 tweet2call.php /usr/local/sbin
+   If your PHP is < 5.2.0 you also need to do the following:
+     mkdir -p /usr/local/sbin/json
+     install -m 755 json/JSON.PHP /usr/local/sbin/json/
+     
+2. Edit the files parameters to fit you (replace nano with your editor)
+     nano -w /usr/local/sbin/tweet2call.php
+	 PARAMETERS:
+		ONLY TOUCH BETWEEN THE "" and set according to your needs:
+		
+		DEPARTMENTS: A pipe "|" seperated list of departments to use
+		             ie: "support|sales|foo|bar"
+		BLACKLIST: The black list matches the first 3 numbers of the string
+		           by default we block international, 911, 411 and other
+				   numbers which you dont want an automated system dialing
+				   or abused. This is also a pipe seperated list you can
+				   block specific area codes as well. 
+		AST_OUTGOING_DIR: This is where asterisk looks for call files
+		                  The default value is the asterisk default and
+						  typicaly should be left alone.
+		TEMP_DIR: This script generates some temporary files specify a 
+		          location where the script will have write permissions.
+				  By default we ues /tmp which should be okay.
+        AST_TRUNK: What trunk should generated calls go out on?
+		           ie:"Zap/g0/##" or "SIP/##@your_sip_peer" 
+		TWITTER_USER: The twitter user name to poll for DM's
+		TWITTER_PASS: The twitter password for the above account.
+		DAEMON: If you call this from a start up script to run in a loop
+		        you will want to set this to 1. By default we call from cron.
+		DAEMON_POLLTIME: If you are in daemon mode how often in minutes
+		                 do you want the system to check for messages. 
+						 Max requests to twitter for all API activities is 
+						 100/HR so if you use other applications with the
+						 above account take their usage in to consideration.
+						 By default we check every minute which is 60
+						 API calls to twitter per hour leaving 40 for 
+						 other usage.
+						 
+Save the file, with nano you will use ctrl+x then "y" for yes and enter 
+on the file name.
+
+If you set "DAEMON" to 1 then you can call the script on bootup by adding
+the following line to /etc/rc.local:
+		/usr/local/sbin/tweet2call.php&
+		
+For Cron we will take the advise from DAEMON_POLLTIME remembering you have
+100 total API calls per hour!
+
+To add to the crontab type: crontab -e
+Add the appropriate line:
+To poll every minute:
+		*/1 * * * * /usr/local/sbin/tweet2call.php
+To poll every  5 minutes:
+		*/5 * * * * /usr/local/sbin/tweet2call.php
+To poll every 10 minutes:
+		*/10 * * * * /usr/local/sbin/tweet2call.php
+Simply replace the first number with the proper ammount of minutes.
+
+DO NOT SET THE SCRIPT TO DAEMON MODE AND USE CRON OR THE UNIVERSE MAY IMPLODE!
+
+Asterisk:
+
+You need to add context to your dialplan for each department in the format:
+[queue-department] the generated calls will be dropped to s,1 of that context.
+The following examples are for queued systems:
+
+[queue-support]
+exten => s,1,Set(QUEUE_PRIO=10)
+exten => s,n,Goto(support-queue,s,2)
+
+[queue-sales]
+exten => s,1,Set(QUEUE_PRIO=10)
+exten => s,n,Goto(sales-queue,s,2)
+
+[queue-billing]
+exten => s,1,Set(QUEUE_PRIO=10)
+exten => s,n,Goto(billing-queue,s,2)
+		
+That is pretty much it if you did the aboe stuff correctly it should work.
+
+If you find this script or any other advice I give useful please consider
+my paypal clergy12@yahoo.com .  Direct gifts are also enjoyed feel free to 
+shoot an email to jfinstrom [at] gmail.com for shipping info. 
+
+TODO/IDEAS for further improvement:
+- convert to freepbx module
+- add database support for blacklist
+- add database driven user based blacklist
+
+Further development of this project will depend on interest and time..
+
+
+Thank you for using tweet2call

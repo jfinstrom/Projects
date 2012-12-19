@@ -1,0 +1,11 @@
+CHANGELOG
+
+v0.01 Initial Script
+v0.02 Clean up of code to make it pretty and streamlined
+v0.03 Add class to allow JSON parsing for older php versions
+v0.04 Add DEBUG to quiet non essential chatter
+      Add chmod to set call file permission to 0666
+	  Add Random seed to call file name in case of duplicates
+	  Add Logging functionality
+      Add Check to ensure 200 its all good and logging of things like 401's
+	  
