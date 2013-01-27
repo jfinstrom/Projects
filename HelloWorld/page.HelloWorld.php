@@ -1,13 +1,23 @@
 <?
 //Check if user is "logged in"
 if (!defined('FREEPBX_IS_AUTH')) { die('No direct script access allowed'); }
-//Handling form stuff....
-isset($_REQUEST['action'])?$action = $_REQUEST['action']:$action='';
-//the item we are currently displaying
-isset($_REQUEST['itemid'])?$itemid=$db->escapeSimple($_REQUEST['itemid']):$itemid='';
 
+//Array to load settings from page, and defaults
+$get_vars = array (
+	'action'	=> '',
+	'id'		=> '',
+	'field1'	=> '',
+	'field2'	=> ''
+);
+
+foreach ($get_vars as $k => $v) {
+	$vars[$k] = isset($_REQUEST[$k]) ? $_REQUEST[$k] : $v;
+}
+
+//action switch
 switch ($action) {
 	case "add":
+		//ADD THE RECORD
 		needreload();
 	break;
 	case "delete":
@@ -18,8 +28,17 @@ switch ($action) {
 		needreload();
 		redirect_standard();
 	break;
-echo "<h2>"._("Hello World")."</h2>";
 
+//rnav
+echo load_view(dirname(__FILE__) . '/views/rnav.php');
+
+//view switch
+switch ($action) {
+	case 'delete':
+	default:
+		echo load_view(dirname(__FILE__) . '/views/landing.php')
+		break;
+}
 }
 
 ?>
